@@ -13,11 +13,13 @@ module Prelude
     swapF,
     (&&),
     (||),
+    (...),
   )
 where
 
 import CoercibleUtils as All
 import Control.Arrow as All hiding (first, second)
+import Control.Category as All
 import Control.Comonad as All
 import Control.Comonad.Cofree as All (Cofree)
 import Control.Comonad.Trans.Cofree as All (CofreeF (..))
@@ -33,7 +35,8 @@ import Data.Profunctor.Strong as All
 import Data.Semigroup as All
 import Data.These as All
 import GHC.Natural (intToNatural)
-import NumHask.Prelude as All hiding ((&&), Distributive, First (..), Last (..), fold, yield, (||))
+import NumHask.Prelude as All hiding ((&&), (.), Distributive, First (..), Last (..), fold, yield, (||))
+import Numeric.Log (Log (..))
 
 type N = Natural
 
@@ -73,6 +76,17 @@ infixr 3 &&
 (||) = (\/)
 
 infixr 2 ||
+
+(...) ::
+  forall k (cat :: k -> k -> *) (b :: k) (c :: k) a1 (a2 :: k).
+  Category cat =>
+  cat b c ->
+  (a1 -> cat a2 b) ->
+  a1 ->
+  cat a2 c
+(...) = (.) . (.)
+
+infixr 8 ...
 
 say :: Text -> IO ()
 say = putStrLn
@@ -137,3 +151,6 @@ instance {-# OVERLAPPING #-} Metric (Pair Int) Natural where
 instance {-# OVERLAPPING #-} Metric (Pair Natural) Natural where
   distanceL1 a b = normL1 (a - b)
   distanceL2 _ _ = throw (NoMethodError "distanceL2 can't be defined for Int pairs")
+
+instance (FromRational a, ExpField a) => FromRational (Log a) where
+  fromRational = Exp . log . fromRational

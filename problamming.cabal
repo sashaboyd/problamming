@@ -80,6 +80,9 @@ common shared
                      , containers
                      , distributive
                      , free
+                     , log-domain
+                     , monad-bayes
+                     , multiset
                      , numhask
                      , numhask-prelude
                      , profunctors
