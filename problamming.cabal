@@ -1,0 +1,98 @@
+cabal-version:       2.4
+name:                problamming
+version:             0.1.0.0
+license-file:        LICENSE
+author:              Sasha
+maintainer:          contact@sashaboyd.com
+extra-source-files:  CHANGELOG.md
+
+common shared
+  default-extensions:
+                       -- Extra syntactic sugar
+                       BlockArguments
+                     , PatternSynonyms
+                     , LambdaCase
+                     , MultiWayIf
+                     , TupleSections
+                     , UnicodeSyntax
+                     , TypeOperators
+                     , NamedFieldPuns
+                     , BinaryLiterals
+                     , DisambiguateRecordFields
+                     , NamedWildCards
+
+                       -- Changes to interpretation of syntax
+                     , ApplicativeDo
+                     , OverloadedStrings
+                     , DuplicateRecordFields
+                     , RebindableSyntax
+                     , ExtendedDefaultRules
+
+                       -- Generic programming
+                     , GeneralizedNewtypeDeriving
+                     , DeriveFunctor
+                     , DeriveFoldable
+                     , DeriveGeneric
+                     , DeriveLift
+                     , DeriveTraversable
+                     , DerivingStrategies
+                     , DerivingVia
+                     , DeriveAnyClass
+                     , StandaloneDeriving
+                     , DefaultSignatures
+                     , TemplateHaskell
+                     , QuasiQuotes
+                     , RoleAnnotations
+                     , PartialTypeSignatures
+
+                       -- Semantic adjustments
+                     , ScopedTypeVariables
+                     , BangPatterns
+                     , NoMonomorphismRestriction
+
+                       -- Typeclass extensions
+                     , FunctionalDependencies
+                     , ConstraintKinds
+                     , FlexibleInstances
+                     , FlexibleContexts
+                     , InstanceSigs
+
+                       -- Type-level programming
+                     , EmptyCase
+                     , KindSignatures
+                     , ExplicitForAll
+                     , RankNTypes
+                     , TypeApplications
+                     , GADTs
+                     , ExistentialQuantification
+                     , DataKinds
+                     , TypeFamilies
+                     , TypeFamilyDependencies
+                     , PolyKinds
+
+                       -- Undo NoImplicitPrelude from RebindableSyntax
+                     , ImplicitPrelude
+
+  build-depends:       adjunctions
+                     , base-noprelude ^>=4.13.0.0
+                     , coercible-utils
+                     , comonad
+                     , containers
+                     , distributive
+                     , free
+                     , numhask
+                     , numhask-prelude
+                     , profunctors
+                     , recursion-schemes
+                     , text
+                     , these
+
+  default-language:    Haskell2010
+
+  hs-source-dirs:      src
+
+executable problamming
+  import:              shared
+  main-is:             Main.hs
+  default-language:    Haskell2010
+  other-modules:       Prelude
