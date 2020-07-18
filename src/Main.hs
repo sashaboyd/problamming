@@ -10,7 +10,6 @@ import Control.Monad.Bayes.Sampler
 import Control.Monad.Bayes.Weighted
 import Control.Monad.Bayes.Traced
 import qualified Data.MultiSet as MS
-import GHC.Show (show)
 
 newtype Square = Square (Either Int Int)
   deriving (Eq, Ord, Generic)
@@ -26,7 +25,7 @@ pattern Jail a = Square (Left a)
 main :: IO ()
 main = do
   squareSamples <- take 5000 <$> (sampleIO $ prior $ mh nsamples (playerSquare 20))
-  print (freq squareSamples)
+  prettyPrint (freq squareSamples)
 
 -- | Distribution over the player's current square after n rolls
 playerSquare :: MonadInfer m => Int -> m Square
@@ -82,8 +81,8 @@ chanceSquares :: [Int]
 chanceSquares = [7, 22, 36]
 
 count :: Eq a => a -> [a] -> Int
-count = length ... filter . (==)
+count = length .: filter . (==)
 
-instance Show Square where
-  show (Jail jailTime) = "Jail " <> GHC.Show.show jailTime
-  show (Sq square) = GHC.Show.show square
+instance Pretty Square where
+  pretty (Jail jailTime) = "Jail " <> pretty jailTime
+  pretty (Sq square) = pretty square

@@ -73,22 +73,10 @@ common shared
                        -- Undo NoImplicitPrelude from RebindableSyntax
                      , ImplicitPrelude
 
-  build-depends:       adjunctions
-                     , base-noprelude ^>=4.13.0.0
-                     , coercible-utils
-                     , comonad
-                     , containers
-                     , distributive
-                     , free
+  build-depends:       prelude-x
                      , log-domain
                      , monad-bayes
                      , multiset
-                     , numhask
-                     , numhask-prelude
-                     , profunctors
-                     , recursion-schemes
-                     , text
-                     , these
 
   default-language:    Haskell2010
 
@@ -98,4 +86,3 @@ executable problamming
   import:              shared
   main-is:             Main.hs
   default-language:    Haskell2010
-  other-modules:       Prelude
